@@ -1,0 +1,69 @@
+:root {
+  /* Brand Color Palette */
+  --color-primary: #F8F1E8;      /* Warm ivory base */
+  --color-ivory: #FFFDF8;        /* Pure silk ivory */
+  --color-champagne: #E8D1B5;    /* Soft luminous champagne */
+  --color-soft-beige: #DCC3A5;   /* Warm soft beige */
+  --color-sand: #F2E8DC;         /* Gentle sand tint */
+  
+  /* Gold Accents (5% luxury highlight rule) */
+  --color-warm-gold: #A86A1D;    /* Antique rich gold */
+  --color-light-gold: #C99A52;   /* Luminous satin gold */
+  --color-deep-gold: #7D4A14;    /* Burnished deep gold */
+  --color-gold-glow: rgba(168, 106, 29, 0.12);
+  --color-gold-border: rgba(201, 154, 82, 0.4);
+
+  /* Deep Contrast Tones */
+  --color-espresso: #4A2A16;     /* Deep roasted espresso */
+  --color-espresso-dark: #2F190C;
+  --color-text: #171412;         /* Rich charcoal black */
+  --color-muted: #75685E;        /* Warm taupe gray */
+  --color-muted-light: #9B8E85;  /* Soft secondary label */
+
+  /* Structural & Glass Tokens */
+  --color-border: #D9C0A0;       /* Fine boundary beige */
+  --color-border-subtle: rgba(217, 192, 160, 0.45);
+  --color-surface-card: #FAF4EC;
+  --color-surface-elevated: #FFFDF9;
+  
+  /* Typography Scale */
+  --font-serif-display: 'Playfair Display', Georgia, serif;
+  --font-serif-editorial: 'Cormorant Garamond', Garamond, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-script: 'Alex Brush', cursive;
+
+  /* Spacing System */
+  --space-xs: 0.25rem;   /* 4px */
+  --space-sm: 0.5rem;    /* 8px */
+  --space-md: 1rem;      /* 16px */
+  --space-lg: 1.5rem;    /* 24px */
+  --space-xl: 2.5rem;    /* 40px */
+  --space-2xl: 4rem;     /* 64px */
+  --space-3xl: 6rem;     /* 96px */
+  --space-4xl: 8.5rem;   /* 136px */
+
+  /* Borders & Radii */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  --border-fine: 1px solid var(--color-border-subtle);
+  --border-gold: 1px solid var(--color-gold-border);
+
+  /* Shadows (Subtle luxury diffusion) */
+  --shadow-sm: 0 2px 8px rgba(74, 42, 22, 0.04);
+  --shadow-md: 0 8px 24px rgba(74, 42, 22, 0.06);
+  --shadow-lg: 0 16px 40px rgba(74, 42, 22, 0.09);
+  --shadow-glow: 0 0 25px rgba(201, 154, 82, 0.18);
+
+  /* Transitions */
+  --transition-fast: 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 350ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 700ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Max Layout Containers */
+  --max-width-content: 1320px;
+  --max-width-editorial: 1080px;
+  --max-width-narrow: 760px;
+}
