@@ -2,23 +2,26 @@ import React from 'react';
 import { MapPin, Navigation, MessageCircle, Clock, Calendar, Phone } from 'lucide-react';
 import { SectionHeading } from '../common/SectionHeading';
 import { LuxuryFrame } from '../common/LuxuryFrame';
+import { ScrollReveal } from '../common/ScrollReveal';
 import { BOUTIQUE_CONFIG, getWhatsAppLink } from '../../config/boutiqueConfig';
 
 export const StoreLocation = () => {
   return (
     <section className="section-padding" style={{ backgroundColor: 'var(--color-ivory)', borderTop: '1px solid var(--color-border-subtle)' }}>
       <div className="container">
-        <SectionHeading
-          eyebrow="PHYSICAL BOUTIQUE"
-          title="Come Visit Us"
-          subtitle="Experience our fabrics in person, receive bespoke drape consultations, and celebrate our opening in Puducherry."
-        />
+        <ScrollReveal>
+          <SectionHeading
+            eyebrow="PHYSICAL BOUTIQUE"
+            title="Come Visit Us"
+            subtitle="Experience our fabrics in person, receive bespoke drape consultations, and celebrate our opening in Puducherry."
+          />
+        </ScrollReveal>
 
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: '2.5rem',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
+            gap: 'clamp(1.5rem, 3vw, 2.5rem)',
             alignItems: 'stretch'
           }}
         >

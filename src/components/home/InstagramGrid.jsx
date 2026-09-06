@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { SectionHeading } from '../common/SectionHeading';
 import { InstagramIcon } from '../common/SocialIcons';
+import { ScrollReveal } from '../common/ScrollReveal';
 import { BOUTIQUE_CONFIG } from '../../config/boutiqueConfig';
 
 export const InstagramGrid = () => {
@@ -42,21 +43,24 @@ export const InstagramGrid = () => {
   return (
     <section className="section-padding" style={{ backgroundColor: 'var(--color-primary)', borderTop: '1px solid var(--color-border-subtle)' }}>
       <div className="container">
-        <SectionHeading
-          eyebrow="COMMUNITY & LOOKBOOK"
-          title="Follow Our Journey"
-          subtitle={`${BOUTIQUE_CONFIG.contact.instagramHandle} • Sneak peeks, styling tutorials, and boutique opening moments.`}
-        />
+        <ScrollReveal>
+          <SectionHeading
+            eyebrow="COMMUNITY & LOOKBOOK"
+            title="Follow Our Journey"
+            subtitle={`${BOUTIQUE_CONFIG.contact.instagramHandle} • Sneak peeks, styling tutorials, and boutique opening moments.`}
+          />
+        </ScrollReveal>
 
-        {/* 6-Item Grid */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))',
-            gap: '1rem',
-            marginBottom: '2.5rem'
-          }}
-        >
+        {/* 6-Item Responsive Grid */}
+        <ScrollReveal delay={0.15}>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 140px), 1fr))',
+              gap: 'clamp(0.5rem, 1.5vw, 1rem)',
+              marginBottom: '2.5rem'
+            }}
+          >
           {posts.map((post, idx) => {
             const isHovered = hoveredIdx === idx;
 
@@ -117,21 +121,24 @@ export const InstagramGrid = () => {
               </a>
             );
           })}
-        </div>
+          </div>
+        </ScrollReveal>
 
         {/* Instagram CTA */}
-        <div style={{ textAlign: 'center' }}>
-          <a
-            href={BOUTIQUE_CONFIG.contact.instagramUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-secondary"
-            style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
-          >
-            <InstagramIcon size={17} />
-            Follow @nafminboutique
-          </a>
-        </div>
+        <ScrollReveal delay={0.25}>
+          <div style={{ textAlign: 'center' }}>
+            <a
+              href={BOUTIQUE_CONFIG.contact.instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-secondary"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+            >
+              <InstagramIcon size={17} />
+              Follow @nafminboutique
+            </a>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );

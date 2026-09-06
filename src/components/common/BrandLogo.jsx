@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logoImg from '../../assets/logo/nafmin-logo.png';
+import { NafminLogoSvg } from './NafminLogoSvg';
 
 export const BrandLogo = ({
   size = 'md', // 'sm' | 'md' | 'lg' | 'hero'
@@ -11,62 +11,53 @@ export const BrandLogo = ({
   style = {}
 }) => {
   const sizeMap = {
-    sm: { height: '38px', text: '1.25rem', sub: '0.55rem' },
-    md: { height: '52px', text: '1.5rem', sub: '0.625rem' },
-    lg: { height: '76px', text: '2rem', sub: '0.75rem' },
-    hero: { height: '110px', text: '2.75rem', sub: '0.95rem' }
+    sm: { markSize: 44, text: '1.25rem', sub: '0.55rem' },
+    md: { markSize: 56, text: '1.45rem', sub: '0.625rem' },
+    lg: { markSize: 76, text: '1.85rem', sub: '0.725rem' },
+    hero: { markSize: 110, text: '2.5rem', sub: '0.9rem' }
   };
 
-  const currentSize = sizeMap[size] || sizeMap.md;
+  const current = sizeMap[size] || sizeMap.md;
 
   const content = (
     <div
-      className={`brand-logo-wrapper ${className}`}
+      className={`brand-logo-container ${className}`}
       style={{
         display: 'inline-flex',
         alignItems: 'center',
-        gap: '0.85rem',
+        gap: '0.75rem',
         textDecoration: 'none',
         ...style
       }}
     >
-      {/* Brand Circular Emblem */}
+      {/* Crisp Vector Seal Mark */}
       {showMark && (
         <div
           style={{
-            height: currentSize.height,
-            width: currentSize.height,
+            width: current.markSize,
+            height: current.markSize,
             flexShrink: 0,
-            borderRadius: '50%',
-            overflow: 'hidden',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            position: 'relative'
+            filter: variant === 'light' ? 'drop-shadow(0 2px 8px rgba(0,0,0,0.3))' : 'drop-shadow(0 2px 6px rgba(168,106,29,0.15))'
           }}
         >
-          <img
-            src={logoImg}
-            alt="NAFMIN BOUTIQUE Logo Seal"
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'contain',
-              filter: variant === 'light' ? 'brightness(1.2)' : 'none'
-            }}
+          <NafminLogoSvg
+            size={current.markSize}
+            variant={variant === 'light' ? 'light' : 'gold'}
           />
         </div>
       )}
 
-      {/* Brand Typography Wordmark */}
-      <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
+      {/* Typography Wordmark */}
+      <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left', lineHeight: 1 }}>
         <span
           style={{
             fontFamily: 'var(--font-serif-display)',
-            fontSize: currentSize.text,
+            fontSize: current.text,
             fontWeight: 600,
             letterSpacing: '0.08em',
-            lineHeight: 1,
             color: variant === 'light' ? 'var(--color-ivory)' : 'var(--color-text)',
             transition: 'color var(--transition-fast)'
           }}
@@ -76,16 +67,15 @@ export const BrandLogo = ({
         <span
           style={{
             fontFamily: 'var(--font-sans)',
-            fontSize: currentSize.sub,
+            fontSize: current.sub,
             fontWeight: 600,
             letterSpacing: '0.35em',
             textTransform: 'uppercase',
             color: 'var(--color-warm-gold)',
-            marginTop: '3px',
-            lineHeight: 1
+            marginTop: '3px'
           }}
         >
-          B O U T I Q U E
+          BOUTIQUE
         </span>
       </div>
     </div>
@@ -93,7 +83,7 @@ export const BrandLogo = ({
 
   if (asLink) {
     return (
-      <Link to="/" aria-label="NAFMIN BOUTIQUE Homepage">
+      <Link to="/" aria-label="NAFMIN BOUTIQUE Home" style={{ textDecoration: 'none' }}>
         {content}
       </Link>
     );

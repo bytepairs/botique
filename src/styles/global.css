@@ -314,6 +314,44 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: var(--shadow-md);
 }
 
+/* Responsive Product Grid Helper (2-column on mobile, auto-fill on desktop) */
+.product-grid-responsive {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: clamp(1rem, 2.5vw, 2rem);
+}
+
+@media (max-width: 640px) {
+  .product-grid-responsive {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+}
+
+/* Touch Friendly Mobile Optimizations */
+button, a {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  .section-padding {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  .btn-primary, .btn-secondary, .btn-whatsapp {
+    padding: 0.85rem 1.4rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+  }
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

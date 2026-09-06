@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layers, Sparkles, HeartHandshake } from 'lucide-react';
 import { SectionHeading } from '../common/SectionHeading';
+import { ScrollReveal } from '../common/ScrollReveal';
 import { BOUTIQUE_CONFIG } from '../../config/boutiqueConfig';
 
 export const BoutiqueExperience = () => {
@@ -13,18 +14,20 @@ export const BoutiqueExperience = () => {
   return (
     <section className="section-padding" style={{ backgroundColor: 'var(--color-ivory)', borderTop: '1px solid var(--color-border-subtle)' }}>
       <div className="container">
-        <SectionHeading
-          eyebrow="IN-STORE SANCTUARY"
-          title="A Boutique Experience, Made For You"
-          subtitle="We believe shopping for hijabs and modest wear should be an intimate, uplifting, and restorative moment."
-        />
+        <ScrollReveal>
+          <SectionHeading
+            eyebrow="IN-STORE SANCTUARY"
+            title="A Boutique Experience, Made For You"
+            subtitle="We believe shopping for hijabs and modest wear should be an intimate, uplifting, and restorative moment."
+          />
+        </ScrollReveal>
 
         {/* Three Feature Blocks */}
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '2.5rem'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+            gap: 'clamp(1.25rem, 3vw, 2.5rem)'
           }}
         >
           {BOUTIQUE_CONFIG.pillars.map((pillar, idx) => {

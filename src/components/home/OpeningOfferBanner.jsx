@@ -3,25 +3,27 @@ import { Link } from 'react-router-dom';
 import { Gift, Calendar, Sparkles, MapPin, ArrowRight } from 'lucide-react';
 import { LuxuryFrame } from '../common/LuxuryFrame';
 import { BotanicalBranch, LuxuryQuatrefoil } from '../common/BotanicalDecoration';
+import { ScrollReveal } from '../common/ScrollReveal';
 import { BOUTIQUE_CONFIG, getOfferWhatsAppLink } from '../../config/boutiqueConfig';
 
 export const OpeningOfferBanner = () => {
   return (
     <section className="section-padding" style={{ backgroundColor: 'var(--color-primary)' }}>
       <div className="container">
-        {/* Luxury Framed Container Inspired directly by the Invitation */}
-        <LuxuryFrame
-          variant="champagne"
-          style={{
-            maxWidth: '1100px',
-            margin: '0 auto',
-            padding: 'clamp(2.5rem, 6vw, 4.5rem)',
-            position: 'relative',
-            overflow: 'hidden',
-            border: '2px solid var(--color-border)',
-            boxShadow: 'var(--shadow-lg)'
-          }}
-        >
+        <ScrollReveal>
+          {/* Luxury Framed Container Inspired directly by the Invitation */}
+          <LuxuryFrame
+            variant="champagne"
+            style={{
+              maxWidth: '1100px',
+              margin: '0 auto',
+              padding: 'clamp(1.75rem, 5vw, 4.5rem)',
+              position: 'relative',
+              overflow: 'hidden',
+              border: '2px solid var(--color-border)',
+              boxShadow: 'var(--shadow-lg)'
+            }}
+          >
           {/* Decorative Corner Botanical Motifs */}
           <BotanicalBranch
             style={{
@@ -122,34 +124,37 @@ export const OpeningOfferBanner = () => {
                 backgroundColor: 'var(--color-ivory)',
                 border: '2px dashed var(--color-warm-gold)',
                 borderRadius: 'var(--radius-md)',
-                padding: '1.25rem 2.5rem',
+                padding: 'clamp(0.85rem, 3vw, 1.25rem) clamp(1rem, 4vw, 2.25rem)',
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '1.25rem',
+                gap: '1rem',
                 boxShadow: '0 8px 25px rgba(168, 106, 29, 0.12)',
-                marginBottom: '2.5rem'
+                marginBottom: '2.5rem',
+                flexWrap: 'wrap',
+                justifyContent: 'center'
               }}
             >
               <div
                 style={{
-                  width: '46px',
-                  height: '46px',
+                  width: '44px',
+                  height: '44px',
                   borderRadius: '50%',
                   backgroundColor: 'rgba(168, 106, 29, 0.12)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: 'var(--color-warm-gold)'
+                  color: 'var(--color-warm-gold)',
+                  flexShrink: 0
                 }}
               >
-                <Gift size={24} />
+                <Gift size={22} />
               </div>
 
               <div style={{ textAlign: 'left' }}>
                 <span
                   style={{
                     display: 'block',
-                    fontSize: '0.725rem',
+                    fontSize: '0.6875rem',
                     fontWeight: 600,
                     letterSpacing: '0.2em',
                     textTransform: 'uppercase',
@@ -161,7 +166,7 @@ export const OpeningOfferBanner = () => {
                 <span
                   style={{
                     fontFamily: 'var(--font-serif-display)',
-                    fontSize: 'clamp(1.2rem, 2.5vw, 1.7rem)',
+                    fontSize: 'clamp(1.1rem, 2.5vw, 1.6rem)',
                     fontWeight: 700,
                     color: 'var(--color-espresso)',
                     letterSpacing: '0.04em'
@@ -179,7 +184,7 @@ export const OpeningOfferBanner = () => {
                 flexWrap: 'wrap',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: '1.5rem',
+                gap: '1.25rem',
                 fontSize: '0.875rem',
                 color: 'var(--color-espresso)',
                 marginBottom: '2.5rem'
@@ -199,7 +204,7 @@ export const OpeningOfferBanner = () => {
             </div>
 
             {/* CTAs */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.85rem', justifyContent: 'center' }}>
               <Link to="/contact" className="btn-primary">
                 Visit Us & Directions
                 <ArrowRight size={16} />
@@ -215,6 +220,7 @@ export const OpeningOfferBanner = () => {
             </div>
           </div>
         </LuxuryFrame>
+        </ScrollReveal>
       </div>
     </section>
   );

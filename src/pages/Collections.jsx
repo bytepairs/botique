@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { SectionHeading } from '../components/common/SectionHeading';
+import { ScrollReveal } from '../components/common/ScrollReveal';
 import { ProductCard } from '../components/product/ProductCard';
 import { QuickViewModal } from '../components/product/QuickViewModal';
 import { COLLECTIONS } from '../data/collections';
@@ -133,21 +134,17 @@ export const Collections = () => {
                     Featured in this Lookbook
                   </h3>
 
-                  <div
-                    style={{
-                      display: 'grid',
-                      gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-                      gap: '1.75rem'
-                    }}
-                  >
-                    {colProducts.map(product => (
-                      <ProductCard
-                        key={product.id}
-                        product={product}
-                        onQuickView={prod => setQuickViewProduct(prod)}
-                      />
-                    ))}
-                  </div>
+                  <ScrollReveal delay={0.1}>
+                    <div className="product-grid-responsive">
+                      {colProducts.map(product => (
+                        <ProductCard
+                          key={product.id}
+                          product={product}
+                          onQuickView={prod => setQuickViewProduct(prod)}
+                        />
+                      ))}
+                    </div>
+                  </ScrollReveal>
                 </div>
               </div>
             );

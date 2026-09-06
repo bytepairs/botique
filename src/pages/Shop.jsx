@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Filter, SlidersHorizontal, ArrowUpDown, X } from 'lucide-react';
 import { SectionHeading } from '../components/common/SectionHeading';
+import { ScrollReveal } from '../components/common/ScrollReveal';
 import { ProductCard } from '../components/product/ProductCard';
 import { QuickViewModal } from '../components/product/QuickViewModal';
 import { PRODUCTS } from '../data/products';
@@ -222,21 +223,17 @@ export const Shop = () => {
             </button>
           </div>
         ) : (
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-              gap: 'clamp(1.5rem, 3vw, 2.25rem)'
-            }}
-          >
-            {filteredProducts.map(product => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                onQuickView={prod => setQuickViewProduct(prod)}
-              />
-            ))}
-          </div>
+          <ScrollReveal delay={0.1}>
+            <div className="product-grid-responsive">
+              {filteredProducts.map(product => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onQuickView={prod => setQuickViewProduct(prod)}
+                />
+              ))}
+            </div>
+          </ScrollReveal>
         )}
       </div>
 

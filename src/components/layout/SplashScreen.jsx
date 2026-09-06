@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import logoImg from '../../assets/logo/nafmin-logo.png';
+import { NafminLogoSvg } from '../common/NafminLogoSvg';
 import { BOUTIQUE_CONFIG } from '../../config/boutiqueConfig';
 
 export const SplashScreen = ({ forceShow = false, onComplete }) => {
@@ -14,15 +14,24 @@ export const SplashScreen = ({ forceShow = false, onComplete }) => {
     }
   });
 
+  const [progress, setProgress] = useState(0);
+
   useEffect(() => {
     if (!isVisible) return;
 
-    // Auto-dismiss after 2.8 seconds
-    const timer = setTimeout(() => {
-      dismissSplash();
-    }, 2800);
+    // Smooth progress counter
+    const interval = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          dismissSplash();
+          return 100;
+        }
+        return prev + 1.6;
+      });
+    }, 35);
 
-    return () => clearTimeout(timer);
+    return () => clearInterval(interval);
   }, [isVisible]);
 
   const dismissSplash = () => {
@@ -43,165 +52,169 @@ export const SplashScreen = ({ forceShow = false, onComplete }) => {
           initial={{ opacity: 1 }}
           exit={{
             opacity: 0,
-            y: -20,
-            transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1] }
+            scale: 1.04,
+            transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
           }}
           style={{
             position: 'fixed',
             inset: 0,
-            zIndex: 99999,
-            backgroundColor: '#F8F1E8',
+            zIndex: 999999,
+            backgroundColor: '#FAF5ED',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '2rem',
+            padding: '1.5rem',
             overflow: 'hidden'
           }}
         >
-          {/* Subtle Ambient Golden Glow */}
+          {/* Subtle Ambient Radial Glow */}
           <div
             style={{
               position: 'absolute',
-              width: '450px',
-              height: '450px',
+              width: '600px',
+              height: '600px',
               borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(201, 154, 82, 0.15) 0%, rgba(248, 241, 232, 0) 70%)',
+              background: 'radial-gradient(circle, rgba(201, 154, 82, 0.22) 0%, rgba(250, 245, 237, 0) 70%)',
               pointerEvents: 'none'
             }}
           />
 
-          {/* Animated Botanical & Golden Logo Container */}
-          <motion.div
-            initial={{ scale: 0.88, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+          {/* Golden Corner Accents */}
+          <div
             style={{
-              position: 'relative',
+              position: 'absolute',
+              top: '24px',
+              left: '24px',
+              width: '32px',
+              height: '32px',
+              borderTop: '2px solid var(--color-light-gold)',
+              borderLeft: '2px solid var(--color-light-gold)',
+              opacity: 0.6
+            }}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              top: '24px',
+              right: '24px',
+              width: '32px',
+              height: '32px',
+              borderTop: '2px solid var(--color-light-gold)',
+              borderRight: '2px solid var(--color-light-gold)',
+              opacity: 0.6
+            }}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              bottom: '24px',
+              left: '24px',
+              width: '32px',
+              height: '32px',
+              borderBottom: '2px solid var(--color-light-gold)',
+              borderLeft: '2px solid var(--color-light-gold)',
+              opacity: 0.6
+            }}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              bottom: '24px',
+              right: '24px',
+              width: '32px',
+              height: '32px',
+              borderBottom: '2px solid var(--color-light-gold)',
+              borderRight: '2px solid var(--color-light-gold)',
+              opacity: 0.6
+            }}
+          />
+
+          {/* Central Logo & Reveal Presentation */}
+          <motion.div
+            initial={{ scale: 0.92, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            style={{
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              textAlign: 'center'
+              textAlign: 'center',
+              maxWidth: '520px',
+              width: '100%',
+              position: 'relative',
+              zIndex: 2
             }}
           >
-            {/* Golden Rotating Ring Effect */}
-            <motion.div
-              initial={{ rotate: -15 }}
-              animate={{ rotate: 0 }}
-              transition={{ duration: 1.8, ease: 'easeOut' }}
+            {/* Top Eyebrow Tag */}
+            <motion.p
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
               style={{
-                width: '180px',
-                height: '180px',
-                borderRadius: '50%',
-                padding: '12px',
-                border: '1px solid rgba(201, 154, 82, 0.5)',
-                boxShadow: '0 0 35px rgba(201, 154, 82, 0.18)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: 'rgba(255, 253, 248, 0.85)',
-                backdropFilter: 'blur(4px)',
-                position: 'relative',
+                fontFamily: 'var(--font-sans)',
+                fontSize: '0.75rem',
+                fontWeight: 600,
+                letterSpacing: '0.3em',
+                textTransform: 'uppercase',
+                color: 'var(--color-warm-gold)',
                 marginBottom: '1.75rem'
               }}
             >
-              <img
-                src={logoImg}
-                alt="NAFMIN BOUTIQUE Logo"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'contain'
-                }}
-              />
+              {BOUTIQUE_CONFIG.eyebrow}
+            </motion.p>
 
-              {/* Decorative Pulsing Golden Dot */}
-              <motion.span
-                animate={{ scale: [1, 1.4, 1], opacity: [0.4, 0.9, 0.4] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                style={{
-                  position: 'absolute',
-                  top: '-4px',
-                  right: '36px',
-                  width: '8px',
-                  height: '8px',
-                  borderRadius: '50%',
-                  backgroundColor: 'var(--color-warm-gold)'
-                }}
+            {/* Pristine Vector Logo Seal with Glow & Stroke Reveal */}
+            <motion.div
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.3, duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                filter: 'drop-shadow(0 12px 35px rgba(168, 106, 29, 0.22))',
+                marginBottom: '1.75rem'
+              }}
+            >
+              <NafminLogoSvg
+                size={window.innerWidth < 480 ? 210 : 250}
+                variant="gold"
+                animate={true}
               />
             </motion.div>
 
-            {/* Brand Title Animation */}
+            {/* Subtitle & Opening Information */}
             <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.35, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.7 }}
             >
-              <p
-                style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '0.75rem',
-                  fontWeight: 600,
-                  letterSpacing: '0.3em',
-                  textTransform: 'uppercase',
-                  color: 'var(--color-warm-gold)',
-                  marginBottom: '0.5rem'
-                }}
-              >
-                {BOUTIQUE_CONFIG.eyebrow}
-              </p>
-              <h1
-                style={{
-                  fontFamily: 'var(--font-serif-display)',
-                  fontSize: 'clamp(2.2rem, 5vw, 3.2rem)',
-                  fontWeight: 500,
-                  letterSpacing: '0.06em',
-                  color: 'var(--color-text)',
-                  lineHeight: 1.1
-                }}
-              >
-                NAFMIN BOUTIQUE
-              </h1>
               <p
                 style={{
                   fontFamily: 'var(--font-serif-editorial)',
-                  fontSize: '1.25rem',
+                  fontSize: 'clamp(1.15rem, 3vw, 1.45rem)',
                   fontStyle: 'italic',
-                  color: 'var(--color-muted)',
-                  marginTop: '0.35rem'
+                  color: 'var(--color-espresso)',
+                  marginBottom: '1rem',
+                  lineHeight: 1.4
                 }}
               >
-                {BOUTIQUE_CONFIG.tagline}
+                "Elegance, Wrapped in Every Detail."
               </p>
-            </motion.div>
 
-            {/* Opening Badge & Location */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.65, duration: 0.8 }}
-              style={{
-                marginTop: '1.5rem',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: '0.4rem'
-              }}
-            >
               <div
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '0.75rem',
+                  gap: '8px',
                   padding: '0.45rem 1.25rem',
                   borderRadius: 'var(--radius-full)',
                   border: '1px solid var(--color-border)',
-                  backgroundColor: 'var(--color-ivory)',
-                  fontSize: '0.8rem',
+                  backgroundColor: 'rgba(255, 253, 248, 0.95)',
+                  fontSize: '0.78rem',
                   fontWeight: 600,
+                  letterSpacing: '0.14em',
+                  textTransform: 'uppercase',
                   color: 'var(--color-espresso)',
-                  letterSpacing: '0.12em',
-                  textTransform: 'uppercase'
+                  boxShadow: '0 2px 10px rgba(74, 42, 22, 0.05)'
                 }}
               >
                 <span
@@ -212,26 +225,60 @@ export const SplashScreen = ({ forceShow = false, onComplete }) => {
                     backgroundColor: 'var(--color-warm-gold)'
                   }}
                 />
-                Opening {BOUTIQUE_CONFIG.openingDate} • Puducherry
+                Puducherry • Grand Opening 10 Sept 2026
+              </div>
+            </motion.div>
+
+            {/* Bottom Progress Hairline & Enter Boutique Trigger */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8, duration: 0.5 }}
+              style={{
+                marginTop: '2.5rem',
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '1rem'
+              }}
+            >
+              {/* Progress Line */}
+              <div
+                style={{
+                  width: '160px',
+                  height: '2px',
+                  backgroundColor: 'rgba(217, 192, 160, 0.4)',
+                  borderRadius: '2px',
+                  overflow: 'hidden'
+                }}
+              >
+                <div
+                  style={{
+                    width: `${progress}%`,
+                    height: '100%',
+                    background: 'linear-gradient(90deg, var(--color-light-gold), var(--color-warm-gold))',
+                    transition: 'width 0.04s linear'
+                  }}
+                />
               </div>
 
-              {/* Skip / Enter Action */}
               <button
                 onClick={dismissSplash}
                 style={{
-                  marginTop: '1.25rem',
                   fontSize: '0.75rem',
+                  fontWeight: 600,
                   letterSpacing: '0.2em',
                   textTransform: 'uppercase',
-                  color: 'var(--color-muted)',
+                  color: 'var(--color-espresso)',
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',
                   padding: '0.5rem 1rem',
-                  transition: 'color var(--transition-fast)'
+                  transition: 'all var(--transition-fast)'
                 }}
-                onMouseEnter={e => e.currentTarget.style.color = 'var(--color-espresso)'}
-                onMouseLeave={e => e.currentTarget.style.color = 'var(--color-muted)'}
+                onMouseEnter={e => e.currentTarget.style.color = 'var(--color-warm-gold)'}
+                onMouseLeave={e => e.currentTarget.style.color = 'var(--color-espresso)'}
               >
                 Enter Boutique &rarr;
               </button>

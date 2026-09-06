@@ -1,6 +1,7 @@
 import React from 'react';
 import { SectionHeading } from '../common/SectionHeading';
 import { BotanicalBranch, LuxuryQuatrefoil } from '../common/BotanicalDecoration';
+import { ScrollReveal } from '../common/ScrollReveal';
 import { BOUTIQUE_CONFIG } from '../../config/boutiqueConfig';
 
 export const BrandIntro = () => {
@@ -11,76 +12,80 @@ export const BrandIntro = () => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
             alignItems: 'center',
-            gap: 'clamp(3rem, 7vw, 6.5rem)'
+            gap: 'clamp(2.5rem, 6vw, 6rem)'
           }}
         >
           {/* Left Column: Atmospheric Fabric Detail */}
-          <div style={{ position: 'relative' }}>
-            <div
-              style={{
-                position: 'relative',
-                borderRadius: 'var(--radius-md)',
-                overflow: 'hidden',
-                aspectRatio: '4 / 4.8',
-                border: '1px solid var(--color-border-subtle)',
-                boxShadow: 'var(--shadow-md)'
-              }}
-            >
-              <img
-                src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1000&q=85"
-                alt="Modest Silk Drape Craftsmanship"
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          <ScrollReveal delay={0.1}>
+            <div style={{ position: 'relative' }}>
+              <div
+                style={{
+                  position: 'relative',
+                  borderRadius: 'var(--radius-md)',
+                  overflow: 'hidden',
+                  aspectRatio: '4 / 4.8',
+                  border: '1px solid var(--color-border-subtle)',
+                  boxShadow: 'var(--shadow-md)'
+                }}
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1000&q=85"
+                  alt="Modest Silk Drape Craftsmanship"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+                <div
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    border: '12px solid var(--color-ivory)'
+                  }}
+                />
+              </div>
+
+              {/* Botanical Motif Accent */}
+              <BotanicalBranch
+                style={{
+                  position: 'absolute',
+                  bottom: '-35px',
+                  right: '-25px',
+                  width: '80px',
+                  height: '180px',
+                  opacity: 0.75,
+                  transform: 'rotate(20deg)',
+                  pointerEvents: 'none'
+                }}
               />
+
+              {/* Floating Atelier Stamp */}
               <div
                 style={{
                   position: 'absolute',
-                  inset: 0,
-                  border: '12px solid var(--color-ivory)'
+                  top: '20px',
+                  left: '12px',
+                  backgroundColor: 'var(--color-espresso)',
+                  color: 'var(--color-ivory)',
+                  padding: '0.65rem 1rem',
+                  borderRadius: 'var(--radius-sm)',
+                  boxShadow: 'var(--shadow-md)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
                 }}
-              />
+              >
+                <LuxuryQuatrefoil size={16} color="var(--color-light-gold)" />
+                <span style={{ fontSize: '0.725rem', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>
+                  Puducherry Atelier
+                </span>
+              </div>
             </div>
-
-            {/* Botanical Motif Accent */}
-            <BotanicalBranch
-              style={{
-                position: 'absolute',
-                bottom: '-35px',
-                right: '-25px',
-                width: '80px',
-                height: '180px',
-                opacity: 0.75,
-                transform: 'rotate(20deg)'
-              }}
-            />
-
-            {/* Floating Atelier Stamp */}
-            <div
-              style={{
-                position: 'absolute',
-                top: '25px',
-                left: '-15px',
-                backgroundColor: 'var(--color-espresso)',
-                color: 'var(--color-ivory)',
-                padding: '0.85rem 1.25rem',
-                borderRadius: 'var(--radius-sm)',
-                boxShadow: 'var(--shadow-md)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px'
-              }}
-            >
-              <LuxuryQuatrefoil size={18} color="var(--color-light-gold)" />
-              <span style={{ fontSize: '0.75rem', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 600 }}>
-                Puducherry Atelier
-              </span>
-            </div>
-          </div>
+          </ScrollReveal>
 
           {/* Right Column: Editorial Typography */}
-          <div>
-            <span className="eyebrow" style={{ marginBottom: '1rem' }}>
+          <ScrollReveal delay={0.25}>
+            <div>
+              <span className="eyebrow" style={{ marginBottom: '1rem' }}>
               OUR ESSENCE
             </span>
 
@@ -158,7 +163,8 @@ export const BrandIntro = () => {
                 </span>
               </div>
             </div>
-          </div>
+            </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>

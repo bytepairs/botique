@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Search, ShoppingBag, Heart, MessageCircle, Menu, X, MapPin } from 'lucide-react';
 import { BrandLogo } from '../common/BrandLogo';
 import { InstagramIcon } from '../common/SocialIcons';
@@ -16,7 +17,7 @@ export const Navbar = ({ onOpenSearch }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 25);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -44,7 +45,7 @@ export const Navbar = ({ onOpenSearch }) => {
           left: 0,
           right: 0,
           zIndex: 1000,
-          backgroundColor: isScrolled ? 'rgba(255, 253, 248, 0.95)' : 'rgba(248, 241, 232, 0.82)',
+          backgroundColor: isScrolled ? 'rgba(255, 253, 248, 0.96)' : 'rgba(248, 241, 232, 0.9)',
           backdropFilter: 'blur(12px)',
           WebkitBackdropFilter: 'blur(12px)',
           borderBottom: isScrolled ? '1px solid var(--color-border-subtle)' : '1px solid transparent',
@@ -60,29 +61,32 @@ export const Navbar = ({ onOpenSearch }) => {
             padding: '0.45rem 1rem',
             textAlign: 'center',
             fontSize: '0.75rem',
-            letterSpacing: '0.14em',
+            letterSpacing: '0.12em',
             textTransform: 'uppercase',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '0.85rem'
+            gap: '0.75rem'
           }}
         >
-          <span style={{ color: 'var(--color-light-gold)' }}>★</span>
-          <span>
+          <span style={{ color: 'var(--color-light-gold)', fontSize: '0.65rem' }}>★</span>
+          <span className="announcement-desktop">
             Boutique Opening: <strong>10th September 2026</strong> • {BOUTIQUE_CONFIG.openingOffer.highlight}
           </span>
-          <span style={{ color: 'var(--color-light-gold)' }}>★</span>
+          <span className="announcement-mobile">
+            Opening 10 Sept • Free Gift Above ₹2500
+          </span>
+          <span style={{ color: 'var(--color-light-gold)', fontSize: '0.65rem' }}>★</span>
         </div>
 
         {/* Main Navbar Bar */}
-        <div className="container" style={{ padding: '0.85rem clamp(1rem, 3vw, 2.5rem)' }}>
+        <div className="container" style={{ padding: '0.75rem clamp(1rem, 3vw, 2.5rem)' }}>
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              gap: '1rem'
+              gap: '0.75rem'
             }}
           >
             {/* Left: Brand Logo */}
@@ -138,7 +142,7 @@ export const Navbar = ({ onOpenSearch }) => {
             </nav>
 
             {/* Right: Actions */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               {/* Search Toggle */}
               <button
                 onClick={onOpenSearch}
@@ -288,81 +292,110 @@ export const Navbar = ({ onOpenSearch }) => {
           </div>
         </div>
 
-        {/* Mobile Slide-Down Menu */}
-        {mobileMenuOpen && (
-          <div
-            style={{
-              backgroundColor: 'var(--color-ivory)',
-              borderTop: '1px solid var(--color-border-subtle)',
-              borderBottom: '1px solid var(--color-border)',
-              padding: '1.75rem 1.5rem',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1.25rem'
-            }}
-          >
-            <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-              {navLinks.map(link => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  onClick={() => setMobileMenuOpen(false)}
-                  style={{
-                    fontFamily: 'var(--font-serif-display)',
-                    fontSize: '1.35rem',
-                    color: location.pathname === link.path ? 'var(--color-warm-gold)' : 'var(--color-text)',
-                    padding: '0.35rem 0',
-                    borderBottom: '1px solid rgba(217, 192, 160, 0.25)'
-                  }}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
-
-            <div
+        {/* Silky Animated Mobile Drawer */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
               style={{
-                marginTop: '0.5rem',
-                paddingTop: '1rem',
+                backgroundColor: 'var(--color-ivory)',
                 borderTop: '1px solid var(--color-border-subtle)',
+                borderBottom: '1px solid var(--color-border)',
+                padding: '1.5rem 1.25rem',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '0.85rem'
+                gap: '1.25rem',
+                overflow: 'hidden'
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.825rem', color: 'var(--color-muted)' }}>
-                <MapPin size={16} style={{ color: 'var(--color-warm-gold)' }} />
-                <span>Muthialpet, Puducherry • Opens 10 Sept 2026</span>
-              </div>
+              <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                {navLinks.map((link, idx) => (
+                  <motion.div
+                    key={link.path}
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.05 * idx, duration: 0.3 }}
+                  >
+                    <Link
+                      to={link.path}
+                      onClick={() => setMobileMenuOpen(false)}
+                      style={{
+                        fontFamily: 'var(--font-serif-display)',
+                        fontSize: '1.35rem',
+                        color: location.pathname === link.path ? 'var(--color-warm-gold)' : 'var(--color-text)',
+                        display: 'block',
+                        padding: '0.4rem 0',
+                        borderBottom: '1px solid rgba(217, 192, 160, 0.2)'
+                      }}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                ))}
+              </nav>
 
-              <div style={{ display: 'flex', gap: '0.75rem' }}>
-                <a
-                  href={getWhatsAppLink()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-whatsapp"
-                  style={{ flex: 1, padding: '0.75rem', fontSize: '0.78rem' }}
-                >
-                  <MessageCircle size={16} />
-                  WhatsApp Us
-                </a>
-                <a
-                  href={BOUTIQUE_CONFIG.location.directionsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-secondary"
-                  style={{ flex: 1, padding: '0.75rem', fontSize: '0.78rem' }}
-                >
-                  Directions
-                </a>
+              <div
+                style={{
+                  paddingTop: '0.85rem',
+                  borderTop: '1px solid var(--color-border-subtle)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.85rem'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.825rem', color: 'var(--color-muted)' }}>
+                  <MapPin size={16} style={{ color: 'var(--color-warm-gold)' }} />
+                  <span>Muthialpet, Puducherry • Opens 10 Sept 2026</span>
+                </div>
+
+                <div style={{ display: 'flex', gap: '0.65rem' }}>
+                  <a
+                    href={getWhatsAppLink()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-whatsapp"
+                    style={{ flex: 1, padding: '0.75rem', fontSize: '0.78rem' }}
+                  >
+                    <MessageCircle size={16} />
+                    WhatsApp Us
+                  </a>
+                  <a
+                    href={BOUTIQUE_CONFIG.location.directionsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-secondary"
+                    style={{ flex: 1, padding: '0.75rem', fontSize: '0.78rem' }}
+                  >
+                    Directions
+                  </a>
+                </div>
               </div>
-            </div>
-          </div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
-      {/* Responsive Navbar Breakpoint Rules */}
+      {/* Responsive Breakpoint CSS */}
       <style>{`
+        .announcement-desktop {
+          display: inline;
+        }
+        .announcement-mobile {
+          display: none;
+        }
+
+        @media (max-width: 600px) {
+          .announcement-desktop {
+            display: none;
+          }
+          .announcement-mobile {
+            display: inline;
+          }
+        }
+
         @media (min-width: 900px) {
           .desktop-nav {
             display: flex !important;

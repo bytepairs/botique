@@ -170,23 +170,24 @@ export const ProductCard = ({ product, onQuickView }) => {
       </div>
 
       {/* Product Information */}
-      <div style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
+      <div className="product-info-container" style={{ padding: 'clamp(0.75rem, 2vw, 1.25rem)', display: 'flex', flexDirection: 'column', flex: 1 }}>
         {/* Fabric Tag */}
         <span
+          className="product-fabric"
           style={{
-            fontSize: '0.7rem',
-            letterSpacing: '0.14em',
+            fontSize: '0.6875rem',
+            letterSpacing: '0.12em',
             textTransform: 'uppercase',
             color: 'var(--color-warm-gold)',
             fontWeight: 600,
-            marginBottom: '4px'
+            marginBottom: '3px'
           }}
         >
           {product.fabric.split(',')[0]}
         </span>
 
         {/* Product Title */}
-        <h3 style={{ fontSize: '1.05rem', fontWeight: 600, lineHeight: 1.3, marginBottom: '4px' }}>
+        <h3 className="product-title" style={{ fontSize: 'clamp(0.875rem, 1.5vw, 1.05rem)', fontWeight: 600, lineHeight: 1.3, marginBottom: '4px' }}>
           <Link
             to={`/product/${product.slug}`}
             style={{ color: 'var(--color-text)' }}
@@ -199,6 +200,7 @@ export const ProductCard = ({ product, onQuickView }) => {
 
         {/* Descriptor */}
         <p
+          className="product-desc"
           style={{
             fontSize: '0.8125rem',
             color: 'var(--color-muted)',
@@ -214,20 +216,20 @@ export const ProductCard = ({ product, onQuickView }) => {
         </p>
 
         {/* Swatches & Pricing */}
-        <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
+        <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', flexWrap: 'wrap' }}>
           {/* Color Swatches */}
-          <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
-            {product.colors?.slice(0, 4).map(c => (
+          <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+            {product.colors?.slice(0, 3).map(c => (
               <span
                 key={c.name}
                 onClick={() => setSelectedColor(c.name)}
                 title={c.name}
                 style={{
-                  width: '12px',
-                  height: '12px',
+                  width: '10px',
+                  height: '10px',
                   borderRadius: '50%',
                   backgroundColor: c.hex,
-                  border: selectedColor === c.name ? '2px solid var(--color-warm-gold)' : '1px solid rgba(0,0,0,0.15)',
+                  border: selectedColor === c.name ? '1.5px solid var(--color-warm-gold)' : '1px solid rgba(0,0,0,0.15)',
                   cursor: 'pointer'
                 }}
               />
@@ -235,25 +237,25 @@ export const ProductCard = ({ product, onQuickView }) => {
           </div>
 
           {/* Pricing */}
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
             {product.compareAtPrice && (
-              <span style={{ fontSize: '0.8rem', color: '#9B8E85', textDecoration: 'line-through' }}>
+              <span style={{ fontSize: '0.75rem', color: '#9B8E85', textDecoration: 'line-through' }}>
                 ₹{product.compareAtPrice.toLocaleString('en-IN')}
               </span>
             )}
-            <span style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--color-espresso)' }}>
+            <span className="product-price" style={{ fontSize: 'clamp(0.95rem, 1.3vw, 1.05rem)', fontWeight: 700, color: 'var(--color-espresso)' }}>
               ₹{product.price.toLocaleString('en-IN')}
             </span>
           </div>
         </div>
 
         {/* Mobile quick actions bar (always visible on mobile) */}
-        <div className="mobile-product-actions" style={{ marginTop: '0.85rem', display: 'none', gap: '6px' }}>
+        <div className="mobile-product-actions" style={{ marginTop: '0.65rem', display: 'none', gap: '6px' }}>
           <button
             onClick={() => addToCart(product, selectedColor)}
             style={{
               flex: 1,
-              padding: '0.5rem',
+              padding: '0.55rem 0.4rem',
               backgroundColor: 'var(--color-espresso)',
               color: 'var(--color-ivory)',
               fontSize: '0.75rem',
@@ -265,7 +267,7 @@ export const ProductCard = ({ product, onQuickView }) => {
               gap: '4px'
             }}
           >
-            <ShoppingBag size={13} />
+            <ShoppingBag size={12} />
             Add
           </button>
           <a
@@ -273,7 +275,7 @@ export const ProductCard = ({ product, onQuickView }) => {
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              padding: '0.5rem 0.65rem',
+              padding: '0.55rem 0.65rem',
               backgroundColor: '#25D366',
               color: '#FFF',
               borderRadius: 'var(--radius-sm)',
@@ -292,6 +294,14 @@ export const ProductCard = ({ product, onQuickView }) => {
         @media (max-width: 768px) {
           .mobile-product-actions {
             display: flex !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .product-desc {
+            display: none !important;
+          }
+          .product-fabric {
+            font-size: 0.625rem !important;
           }
         }
       `}</style>

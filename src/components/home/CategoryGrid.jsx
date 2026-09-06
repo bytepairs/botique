@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { SectionHeading } from '../common/SectionHeading';
+import { ScrollReveal } from '../common/ScrollReveal';
 import { CATEGORIES } from '../../data/categories';
 
 export const CategoryGrid = () => {
@@ -10,18 +11,20 @@ export const CategoryGrid = () => {
   return (
     <section className="section-padding" style={{ backgroundColor: 'var(--color-primary)' }}>
       <div className="container">
-        <SectionHeading
-          eyebrow="TAILORED AESTHETICS"
-          title="Discover Your Style"
-          subtitle="Explore distinct drape textures and silhouettes curated for daily ease and unforgettable occasions."
-        />
+        <ScrollReveal>
+          <SectionHeading
+            eyebrow="TAILORED AESTHETICS"
+            title="Discover Your Style"
+            subtitle="Explore distinct drape textures and silhouettes curated for daily ease and unforgettable occasions."
+          />
+        </ScrollReveal>
 
         {/* Editorial Category Grid */}
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: 'clamp(1.5rem, 3vw, 2.5rem)'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
+            gap: 'clamp(1rem, 2.5vw, 2rem)'
           }}
         >
           {CATEGORIES.map(category => {

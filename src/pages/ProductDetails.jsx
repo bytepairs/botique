@@ -68,8 +68,8 @@ export const ProductDetails = () => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-            gap: 'clamp(2.5rem, 5vw, 4.5rem)',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))',
+            gap: 'clamp(2rem, 4vw, 4rem)',
             alignItems: 'start',
             marginBottom: '5rem'
           }}
@@ -382,13 +382,7 @@ export const ProductDetails = () => {
             <h3 style={{ fontFamily: 'var(--font-serif-display)', fontSize: '1.85rem', marginBottom: '2rem', textAlign: 'center' }}>
               Complementary Atelier Styles
             </h3>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                gap: '2rem'
-              }}
-            >
+            <div className="product-grid-responsive">
               {relatedProducts.map(rel => (
                 <ProductCard key={rel.id} product={rel} />
               ))}
