@@ -7,6 +7,8 @@ import { SearchOverlay } from './components/layout/SearchOverlay';
 import { CartDrawer } from './components/layout/CartDrawer';
 import { WishlistDrawer } from './components/layout/WishlistDrawer';
 import { MobileStickyBar } from './components/layout/MobileStickyBar';
+import { ThemeDrawer } from './components/common/ThemeDrawer';
+import { ScrollProgressBar } from './components/common/ScrollReveal';
 
 // Pages
 import { Home } from './pages/Home';
@@ -26,6 +28,9 @@ export const App = () => {
 
   return (
     <div className="app-root" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      {/* 0. Silky Framer Motion Scroll Progress Bar */}
+      <ScrollProgressBar />
+
       {/* 1. Animated Splash Screen */}
       <SplashScreen
         forceShow={showSplashForced}
@@ -58,6 +63,7 @@ export const App = () => {
       <SearchOverlay isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
       <CartDrawer />
       <WishlistDrawer />
+      <ThemeDrawer />
     </div>
   );
 };

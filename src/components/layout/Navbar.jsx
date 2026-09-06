@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, ShoppingBag, Heart, MessageCircle, Menu, X, MapPin } from 'lucide-react';
+import { Search, ShoppingBag, Heart, MessageCircle, Menu, X, MapPin, Palette } from 'lucide-react';
 import { BrandLogo } from '../common/BrandLogo';
 import { InstagramIcon } from '../common/SocialIcons';
 import { useCart } from '../../context/CartContext';
 import { useWishlist } from '../../context/WishlistContext';
+import { useTheme } from '../../context/ThemeContext';
 import { BOUTIQUE_CONFIG, getWhatsAppLink } from '../../config/boutiqueConfig';
 
 export const Navbar = ({ onOpenSearch }) => {
@@ -13,6 +14,7 @@ export const Navbar = ({ onOpenSearch }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { totalItems, setIsCartOpen } = useCart();
   const { count: wishlistCount, setIsWishlistOpen } = useWishlist();
+  const { currentTheme, openThemeDrawer } = useTheme();
   const location = useLocation();
 
   useEffect(() => {
@@ -139,10 +141,78 @@ export const Navbar = ({ onOpenSearch }) => {
                   </Link>
                 );
               })}
+
+              {/* Themes Trigger in Nav List */}
+              <button
+                onClick={openThemeDrawer}
+                style={{
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: '0.8125rem',
+                  fontWeight: 500,
+                  letterSpacing: '0.14em',
+                  textTransform: 'uppercase',
+                  color: 'var(--color-muted)',
+                  position: 'relative',
+                  padding: '0.4rem 0',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.45rem',
+                  transition: 'color var(--transition-fast)'
+                }}
+                onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-espresso)')}
+                onMouseLeave={e => (e.currentTarget.style.color = 'var(--color-muted)')}
+                title="Personalize boutique colors"
+              >
+                <Palette size={14} style={{ color: 'var(--color-warm-gold)' }} />
+                <span>Themes</span>
+                <span
+                  style={{
+                    fontSize: '0.62rem',
+                    padding: '1px 5px',
+                    borderRadius: '10px',
+                    backgroundColor: 'var(--color-gold-glow)',
+                    color: 'var(--color-warm-gold)',
+                    border: '1px solid var(--color-gold-border)',
+                    fontWeight: 700
+                  }}
+                >
+                  10
+                </span>
+              </button>
             </nav>
 
             {/* Right: Actions */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              {/* Theme Switcher Quick Action */}
+              <button
+                onClick={openThemeDrawer}
+                style={{
+                  padding: '8px',
+                  color: 'var(--color-espresso)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  position: 'relative',
+                  transition: 'color var(--transition-fast)'
+                }}
+                aria-label="Customize Boutique Theme"
+                title={`Theme: ${currentTheme.name} (10 options)`}
+              >
+                <Palette size={19} />
+                <span
+                  style={{
+                    position: 'absolute',
+                    top: '6px',
+                    right: '6px',
+                    width: '7px',
+                    height: '7px',
+                    borderRadius: '50%',
+                    backgroundColor: 'var(--color-warm-gold)',
+                    border: '1.5px solid var(--color-ivory)'
+                  }}
+                />
+              </button>
+
               {/* Search Toggle */}
               <button
                 onClick={onOpenSearch}
@@ -335,6 +405,72 @@ export const Navbar = ({ onOpenSearch }) => {
                     </Link>
                   </motion.div>
                 ))}
+
+                {/* Mobile Boutique Themes Option */}
+                <motion.div
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.05 * navLinks.length, duration: 0.3 }}
+                >
+                  <button
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      openThemeDrawer();
+                    }}
+                    style={{
+                      width: '100%',
+                      textAlign: 'left',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '0.65rem 0',
+                      borderBottom: '1px solid rgba(217, 192, 160, 0.2)',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-serif-display)',
+                          fontSize: '1.35rem',
+                          color: 'var(--color-text)'
+                        }}
+                      >
+                        Boutique Themes
+                      </span>
+                      <span
+                        style={{
+                          fontSize: '0.65rem',
+                          fontWeight: 700,
+                          letterSpacing: '0.08em',
+                          textTransform: 'uppercase',
+                          padding: '2px 7px',
+                          borderRadius: '12px',
+                          backgroundColor: 'var(--color-gold-glow)',
+                          color: 'var(--color-warm-gold)',
+                          border: '1px solid var(--color-gold-border)'
+                        }}
+                      >
+                        10 Styles
+                      </span>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+                      {currentTheme.swatches.map((color, i) => (
+                        <span
+                          key={i}
+                          style={{
+                            width: '13px',
+                            height: '13px',
+                            borderRadius: '50%',
+                            backgroundColor: color,
+                            border: '1px solid rgba(0, 0, 0, 0.15)'
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </button>
+                </motion.div>
               </nav>
 
               <div
